@@ -5,15 +5,8 @@ $ cd RTM-src-pkgs-docker-build/ubuntu_1804
 
 --- Run the followings in this directory. ---
 
-< C++ >
-$ git clone https://github.com/OpenRTM/OpenRTM-aist
-$ cd OpenRTM-aist/
-$ git checkout svn/RELENG_1_2
-$ cd ..
-$ sudo docker build -t cxx12 -f Dockerfile-cxx-12-deb .
-$ sudo docker create --name cxx12 cxx12
-$ sudo docker cp cxx12:/root/cxx-src-pkgs .
-$ sudo docker cp cxx12:/root/cxx-deb-pkgs .
+< C++ > --- For creating deb packages
+$ sh build-cxx.sh 
 
 $ ls cxx-src-pkgs/
 OpenRTM-aist-1.2.2-win32.zip  OpenRTM-aist-1.2.2.tar.bz2  OpenRTM-aist-1.2.2.tar.gz
@@ -26,15 +19,16 @@ openrtm-aist-example-dbgsym_1.2.2-0_amd64.ddeb  openrtm-aist_1.2.2-0_amd64.chang
 openrtm-aist-example_1.2.2-0_amd64.deb          openrtm-aist_1.2.2-0_amd64.deb
 openrtm-aist-idl_1.2.2-0_amd64.deb
 
+< C++ > --- For creating source package for Windows
+$ sh build-cxx_windows.sh 
+
+$ ls cxx_windows-src-pkgs/
+OpenRTM-aist-1.2.2-win32.zip  OpenRTM-aist-1.2.2.tar.bz2  OpenRTM-aist-1.2.2.tar.gz
+
+Notes : [Do not create deb package for Windows.]
+
 < Python >
-$ git clone https://github.com/OpenRTM/OpenRTM-aist-Python
-$ cd OpenRTM-aist-Python/
-$ git checkout svn/RELENG_1_2
-$ cd ..
-$ sudo docker build -t python12 -f Dockerfile-python-12-deb .
-$ sudo docker create --name python12 python12
-$ sudo docker cp python12:/root/python-src-pkgs .
-$ sudo docker cp python12:/root/python-deb-pkgs .
+$ sh build-python.sh
 
 $ ls python-src-pkgs/
 OpenRTM-aist-Python-1.2.2.tar.gz  OpenRTM-aist-Python-1.2.2.zip
@@ -44,14 +38,7 @@ openrtm-aist-python3-example_1.2.2-0_amd64.deb  openrtm-aist-python_1.2.2-0.dsc 
 openrtm-aist-python3_1.2.2-0_amd64.deb          openrtm-aist-python_1.2.2-0.tar.gz
 
 < Java >
-$ git clone https://github.com/OpenRTM/OpenRTM-aist-Java
-$ cd OpenRTM-aist-Java/
-$ git checkout svn/RELENG_1_2
-$ cd ..
-$ sudo docker build -t java12 -f Dockerfile-java-12-deb .
-$ sudo docker create --name java12 java12
-$ sudo docker cp java12:/root/java-src-pkgs .
-$ sudo docker cp java12:/root/java-deb-pkgs .
+$ sh build-java.sh
 
 $ ls java-src-pkgs/
 OpenRTM-aist-Java-1.2.2-jar.zip  OpenRTM-aist-Java-1.2.2.tar.gz  OpenRTM-aist-Java-1.2.2.zip
@@ -60,3 +47,10 @@ $ ls java-deb-pkgs/
 openrtm-aist-java-doc_1.2.2-0_all.deb        openrtm-aist-java_1.2.2-0.tar.gz           openrtm-aist-java_1.2.2-0_amd64.deb
 openrtm-aist-java-example_1.2.2-0_amd64.deb  openrtm-aist-java_1.2.2-0_amd64.buildinfo
 openrtm-aist-java_1.2.2-0.dsc                openrtm-aist-java_1.2.2-0_amd64.changes
+
+< OpenRTP >
+$ sh build-openrtp.sh
+
+$ ls openrtp-deb-pkgs/
+openrtp_1.2.2-0_amd64.deb
+

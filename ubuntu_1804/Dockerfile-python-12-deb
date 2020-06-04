@@ -1,5 +1,8 @@
 FROM ubuntu:18.04 
 
+ARG TARGET
+ARG REPO
+
 RUN sed -i -e 's%deb http://archive.ubuntu.com/ubuntu%deb http://ftp.riken.go.jp/Linux/ubuntu/%g' /etc/apt/sources.list
 RUN apt update\
  && apt install -y --no-install-recommends \
@@ -16,7 +19,7 @@ RUN apt update\
  fakeroot
 
 RUN wget -O- --no-check-certificate https://openrtm.org/pub/openrtm.key | apt-key add - \
- && echo "deb http://150.29.99.185/pub/Linux/ubuntu/ bionic main" >> /etc/apt/sources.list \
+ && echo "deb http://${REPO}/pub/Linux/ubuntu/ bionic main" >> /etc/apt/sources.list \
  && apt update \
  && apt install -y --no-install-recommends \
  libomniorb4-dev \
@@ -34,13 +37,13 @@ RUN sed -i -e "s/('build_doc'/#('build_doc'/g" setup.py \
  && cat packages/deb/debian/control.back | head -n 27 > packages/deb/debian/control \
  && python3 setup.py build \
  && python3 setup.py sdist \
- && mkdir -p /root/python-src-pkgs \
- && cp dist/* /root/python-src-pkgs/
+ && mkdir -p /root/${TARGET}-src-pkgs \
+ && cp dist/* /root/${TARGET}-src-pkgs/
 
 WORKDIR /root/OpenRTM-aist-Python/dist
-RUN mkdir -p /root/python-deb-pkgs \
+RUN mkdir -p /root/${TARGET}-deb-pkgs \
  && VERSION=`python3 ../setup.py --version` \
  && tar xf OpenRTM-aist-Python-${VERSION}.tar.gz \
  && cd OpenRTM-aist-Python-${VERSION}/packages \
  && make \
- && cp /root/OpenRTM-aist-Python/dist/OpenRTM-aist-Python-${VERSION}/packages/openrtm-aist* /root/python-deb-pkgs/
+ && cp /root/OpenRTM-aist-Python/dist/OpenRTM-aist-Python-${VERSION}/packages/openrtm-aist* /root/${TARGET}-deb-pkgs/

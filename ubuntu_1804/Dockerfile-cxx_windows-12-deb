@@ -15,7 +15,7 @@ RUN apt update\
  g++ \
  cmake \
  make \
- python3-yaml \
+ python-yaml \
  uuid-dev \ 
  libboost-filesystem-dev \
  git \
@@ -23,7 +23,7 @@ RUN apt update\
  wget \
  zip \ 
  unzip \ 
- python3 \
+ python \
  doxygen \
  pkg-config \
  libssl-dev \
@@ -58,14 +58,3 @@ RUN ./build/autogen \
  && cp OpenRTM-aist-${VERSION}.tar.* /root/${TARGET}-src-pkgs/ \
  && cp OpenRTM-aist-${VERSION}*.zip /root/${TARGET}-src-pkgs/
 
-RUN mkdir -p /root/OpenRTM-aist/work \
- && cp OpenRTM*tar.gz /root/OpenRTM-aist/work
-WORKDIR /root/OpenRTM-aist/work
-RUN tar xf OpenRTM-aist-${VERSION}.tar.gz \
- && cd OpenRTM-aist-${VERSION} \
- && ./configure --prefix=/usr \
- && cd packages \
- && make
-
-RUN mkdir -p /root/${TARGET}-deb-pkgs \
- && cp /root/OpenRTM-aist/work/OpenRTM-aist-${VERSION}/packages/openrtm-aist* /root/${TARGET}-deb-pkgs/

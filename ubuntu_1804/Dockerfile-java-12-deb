@@ -1,7 +1,9 @@
 FROM ubuntu:18.04 
 
 ARG VERSION="1.2.2"
-ARG SHORT_VERSION="1.2"
+ARG JAVA_SHORT_VERSION="1.2"
+ARG TARGET
+ARG REPO
 
 RUN sed -i -e 's%deb http://archive.ubuntu.com/ubuntu%deb http://ftp.riken.go.jp/Linux/ubuntu/%g' /etc/apt/sources.list
 RUN apt update\
@@ -25,7 +27,7 @@ RUN apt update\
  fakeroot 
 
 RUN wget -O- --no-check-certificate https://openrtm.org/pub/openrtm.key | apt-key add - \
- && echo "deb http://150.29.99.185/pub/Linux/ubuntu/ bionic main" >> /etc/apt/sources.list \
+ && echo "deb http://${REPO}/pub/Linux/ubuntu/ bionic main" >> /etc/apt/sources.list \
  && apt update \
  && apt install -y --no-install-recommends \
  libomniorb4-dev \
@@ -48,17 +50,17 @@ RUN export JAVA_HOME=/usr/ \
  && sh buildPackage.sh
 
 RUN mkdir -p /root/OpenRTM-aist-Java/work \
- && mkdir -p /root/java-src-pkgs \
+ && mkdir -p /root/${TARGET}-src-pkgs \
  && cp /root/OpenRTM-aist-Java/jp.go.aist.rtm.RTC/jar/source/OpenRTM*jar.zip /root/OpenRTM-aist-Java/work/ \
- && cp /root/OpenRTM-aist-Java/jp.go.aist.rtm.RTC/jar/source/OpenRTM*.zip /root/java-src-pkgs/ \
- && cp /root/OpenRTM-aist-Java/jp.go.aist.rtm.RTC/jar/source/OpenRTM*.tar.gz /root/java-src-pkgs/
+ && cp /root/OpenRTM-aist-Java/jp.go.aist.rtm.RTC/jar/source/OpenRTM*.zip /root/${TARGET}-src-pkgs/ \
+ && cp /root/OpenRTM-aist-Java/jp.go.aist.rtm.RTC/jar/source/OpenRTM*.tar.gz /root/${TARGET}-src-pkgs/
 
 WORKDIR /root/OpenRTM-aist-Java/work
 RUN unzip OpenRTM-aist-Java-${VERSION}-jar.zip \
- && cd OpenRTM-aist/${SHORT_VERSION} \
+ && cd OpenRTM-aist/${JAVA_SHORT_VERSION} \
  && cp -r /root/OpenRTM-aist-Java/packages . \
  && cd packages/deb \
  && sh dpkg_build.sh
 
-RUN mkdir -p /root/java-deb-pkgs \
- && cp /root/OpenRTM-aist-Java/work/OpenRTM-aist/${SHORT_VERSION}/packages/openrtm-aist* /root/java-deb-pkgs/
+RUN mkdir -p /root/${TARGET}-deb-pkgs \
+ && cp /root/OpenRTM-aist-Java/work/OpenRTM-aist/${JAVA_SHORT_VERSION}/packages/openrtm-aist* /root/${TARGET}-deb-pkgs/
