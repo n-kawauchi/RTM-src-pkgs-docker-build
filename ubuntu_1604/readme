@@ -1,0 +1,56 @@
+Usage:
+
+$ git clone https://github.com/n-kawauchi/RTM-src-pkgs-docker-build
+$ cd RTM-src-pkgs-docker-build/ubuntu_1604
+
+--- Run the followings in this directory. ---
+
+< C++ > --- For creating deb packages
+$ sh build-cxx.sh 
+
+$ ls cxx-src-pkgs/
+OpenRTM-aist-1.2.2-win32.zip  OpenRTM-aist-1.2.2.tar.bz2  OpenRTM-aist-1.2.2.tar.gz
+
+$ ls cxx-deb-pkgs/
+openrtm-aist-dbgsym_1.2.2-0_amd64.ddeb          openrtm-aist_1.2.2-0.dsc
+openrtm-aist-dev_1.2.2-0_amd64.deb              openrtm-aist_1.2.2-0.tar.gz
+openrtm-aist-doc_1.2.2-0_all.deb                openrtm-aist_1.2.2-0_amd64.buildinfo
+openrtm-aist-example-dbgsym_1.2.2-0_amd64.ddeb  openrtm-aist_1.2.2-0_amd64.changes
+openrtm-aist-example_1.2.2-0_amd64.deb          openrtm-aist_1.2.2-0_amd64.deb
+openrtm-aist-idl_1.2.2-0_amd64.deb
+
+< C++ > --- For creating source package for Windows
+$ sh build-cxx_windows.sh 
+
+$ ls cxx_windows-src-pkgs/
+OpenRTM-aist-1.2.2-win32.zip  OpenRTM-aist-1.2.2.tar.bz2  OpenRTM-aist-1.2.2.tar.gz
+
+Notes : [Do not create deb package for Windows.]
+
+< Python >
+$ sh build-python.sh
+
+$ ls python-src-pkgs/
+OpenRTM-aist-Python-1.2.2.tar.gz  OpenRTM-aist-Python-1.2.2.zip
+
+$ ls python-deb-pkgs/
+openrtm-aist-python3-example_1.2.2-0_amd64.deb  openrtm-aist-python_1.2.2-0.dsc     openrtm-aist-python_1.2.2-0_amd64.changes
+openrtm-aist-python3_1.2.2-0_amd64.deb          openrtm-aist-python_1.2.2-0.tar.gz
+
+< Java >
+$ sh build-java.sh
+
+$ ls java-src-pkgs/
+OpenRTM-aist-Java-1.2.2-jar.zip  OpenRTM-aist-Java-1.2.2.tar.gz  OpenRTM-aist-Java-1.2.2.zip
+
+$ ls java-deb-pkgs/
+openrtm-aist-java-doc_1.2.2-0_all.deb        openrtm-aist-java_1.2.2-0.tar.gz           openrtm-aist-java_1.2.2-0_amd64.deb
+openrtm-aist-java-example_1.2.2-0_amd64.deb  openrtm-aist-java_1.2.2-0_amd64.buildinfo
+openrtm-aist-java_1.2.2-0.dsc                openrtm-aist-java_1.2.2-0_amd64.changes
+
+< OpenRTP >
+$ sh build-openrtp.sh
+
+$ ls openrtp-deb-pkgs/
+openrtp_1.2.2-0_amd64.deb
+
