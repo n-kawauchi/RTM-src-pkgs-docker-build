@@ -1,9 +1,11 @@
 #!/bin/bash
 
+CODE_NAME=xenial
 TARGET=java
 VERSION=1.2.2
 BRANCH=svn/RELENG_1_2
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
+JAVA_SHORT_VER=`echo $VERSION | cut -b 1-3`
 #REPO=openrtm.org
 REPO=150.29.99.185
 
@@ -23,8 +25,12 @@ cd -
 
 # build in docker environment
 echo "${password}" | sudo -S docker build \
+ --build-arg CODE_NAME=${CODE_NAME} \
  --build-arg TARGET=${TARGET} \
+ --build-arg VERSION=${VERSION} \
+ --build-arg JAVA_SHORT_VER=${JAVA_SHORT_VER} \
  --build-arg REPO=${REPO} \
+ --network=host \
  -t ${TARGET}${SHORT_VER} \
  -f Dockerfile-${TARGET}-${SHORT_VER}-deb .
 echo "${password}" | sudo -S docker create --name ${TARGET}${SHORT_VER} ${TARGET}${SHORT_VER}

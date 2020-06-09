@@ -28,6 +28,7 @@ echo "${password}" | sudo -S docker build \
  --build-arg TARGET=${TARGET} \
  --build-arg VERSION=${VERSION} \
  --build-arg REPO=${REPO} \
+ --network=host \
  -t ${TARGET}${SHORT_VER} \
  -f Dockerfile-${TARGET}-${SHORT_VER}-deb .
 echo "${password}" | sudo -S docker create --name ${TARGET}${SHORT_VER} ${TARGET}${SHORT_VER}
