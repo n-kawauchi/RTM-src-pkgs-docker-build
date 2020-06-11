@@ -6,10 +6,21 @@ BRANCH=RELENG_1_2
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
 #----- check all in one package
-ret=`find . -name *ja-linux-gtk-x86_64.tar.gz`
-if test "x${ret}" = "x"; then
-	echo "Not found all-in-package.(eclipse*ja-linux-gtk-x86_64.tar.gz)"
-	exit
+ARCH=`arch`
+if test "x${ARCH}" = "xx86_64"; then
+	ret=`find . -name *ja-linux-gtk-x86_64.tar.gz`
+	if test "x${ret}" = "x"; then
+		echo "Not found all-in-package.(eclipse*ja-linux-gtk-x86_64.tar.gz)"
+		exit
+	fi
+	eclipse_name=`find . -name *ja-linux-gtk-x86_64.tar.gz | xargs basename`
+else
+	ret=`find . -name *ja-linux-gtk.tar.gz`
+	if test "x${ret}" = "x"; then
+		echo "Not found all-in-package.(eclipse*ja-linux-gtk.tar.gz)"
+		exit
+	fi
+	eclipse_name=`find . -name *ja-linux-gtk.tar.gz | xargs basename`
 fi
 
 printf "sudo password: "
@@ -18,8 +29,7 @@ read password
 stty echo
 echo "${password}" | sudo -S rm -rf openrtp*
 
-name=`find . -name *ja-linux-gtk-x86_64.tar.gz | xargs basename`
-tar xvzf ${name}
+tar xvzf ${eclipse_name}
 mv eclipse openrtp
 
 git clone https://github.com/OpenRTM/OpenRTP-aist
@@ -30,7 +40,10 @@ cd -
 rm -rf OpenRTP-aist
 
 # build in docker environment
-echo "${password}" | sudo -S docker build --build-arg TARGET=${TARGET} -t ${TARGET}${SHORT_VER} -f Dockerfile-${TARGET}-${SHORT_VER}-deb .
+echo "${password}" | sudo -S docker build \
+ --build-arg TARGET=${TARGET} \
+ -t ${TARGET}${SHORT_VER} \
+ -f Dockerfile-${TARGET}-${SHORT_VER}-deb .
 echo "${password}" | sudo -S docker create --name ${TARGET}${SHORT_VER} ${TARGET}${SHORT_VER}
 echo "${password}" | sudo -S docker cp ${TARGET}${SHORT_VER}:/root/${TARGET}-deb-pkgs .
 echo "${password}" | sudo -S docker rm ${TARGET}${SHORT_VER}

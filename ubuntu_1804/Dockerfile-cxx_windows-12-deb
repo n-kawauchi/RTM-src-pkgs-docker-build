@@ -1,6 +1,7 @@
 FROM ubuntu:18.04 
 
-ARG VERSION="1.2.2"
+ARG CODE_NAME
+ARG VERSION
 ARG TARGET
 ARG REPO
 
@@ -33,7 +34,7 @@ RUN apt update\
  fakeroot
 
 RUN wget -O- --no-check-certificate https://openrtm.org/pub/openrtm.key | apt-key add - \
- && echo "deb http://${REPO}/pub/Linux/ubuntu/ bionic main" >> /etc/apt/sources.list \
+ && echo "deb http://${REPO}/pub/Linux/ubuntu/ ${CODE_NAME} main" >> /etc/apt/sources.list \
  && apt update \
  && apt install -y --no-install-recommends \
  libomniorb4-dev \

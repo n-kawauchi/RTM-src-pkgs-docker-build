@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CODE_NAME=bionic
 TARGET=python
 VERSION=1.2.2
 BRANCH=svn/RELENG_1_2
@@ -23,7 +24,9 @@ cd -
 
 # build in docker environment
 echo "${password}" | sudo -S docker build \
+ --build-arg CODE_NAME=${CODE_NAME} \
  --build-arg TARGET=${TARGET} \
+ --build-arg VERSION=${VERSION} \
  --build-arg REPO=${REPO} \
  -t ${TARGET}${SHORT_VER} \
  -f Dockerfile-${TARGET}-${SHORT_VER}-deb .
