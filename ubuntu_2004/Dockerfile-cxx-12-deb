@@ -29,6 +29,7 @@ RUN apt update\
  unzip \ 
  python3 \
  doxygen \
+ graphviz \
  pkg-config \
  libssl-dev \
  build-essential \

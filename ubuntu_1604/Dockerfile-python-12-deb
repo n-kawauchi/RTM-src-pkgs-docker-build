@@ -13,6 +13,7 @@ RUN apt update\
  python3-all-dev \
  wget \
  doxygen \
+ graphviz \
  pkg-config \
  libssl-dev \
  build-essential \
