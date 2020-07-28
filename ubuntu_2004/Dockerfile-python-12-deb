@@ -36,12 +36,7 @@ RUN wget -O- --no-check-certificate https://openrtm.org/pub/openrtm.key | apt-ke
 
 COPY OpenRTM-aist-Python /root/OpenRTM-aist-Python
 WORKDIR /root/OpenRTM-aist-Python
-RUN sed -i -e "s/('build_doc'/#('build_doc'/g" setup.py \
- && sed -i -e 's%(mkdir $(CURDIR)/debian/openrtm-aist-python3-doc%#(mkdir $(CURDIR)/debian/openrtm-aist-python3-doc%g' packages/deb/debian/rules \
- && sed -i -e 's/python3 setup.py install_doc/#python3 setup.py install_doc/g' packages/deb/debian/rules \
- && mv packages/deb/debian/control packages/deb/debian/control.back \
- && cat packages/deb/debian/control.back | head -n 27 > packages/deb/debian/control \
- && python3 setup.py build \
+RUN python3 setup.py build \
  && python3 setup.py sdist \
  && mkdir -p /root/${TARGET}-src-pkgs \
  && cp dist/* /root/${TARGET}-src-pkgs/
