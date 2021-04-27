@@ -6,8 +6,8 @@ VERSION=1.2.2
 BRANCH=svn/RELENG_1_2
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 JAVA_SHORT_VER=`echo $VERSION | cut -b 1-3`
-#REPO=openrtm.org
-REPO=150.29.99.185
+REPO=openrtm.org
+#REPO=150.29.99.185
 
 printf "sudo password: "
 stty -echo
