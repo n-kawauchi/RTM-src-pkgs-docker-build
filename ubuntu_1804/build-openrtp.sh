@@ -1,8 +1,9 @@
 #!/bin/bash
 
 TARGET=openrtp
-VERSION=1.2.2
-BRANCH=RELENG_1_2
+VERSION=2.0.0
+#BRANCH=RELENG_2_0
+BRANCH=master
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
 #----- check all in one package
@@ -43,7 +44,7 @@ rm -rf OpenRTP-aist
 echo "${password}" | sudo -S docker build \
  --build-arg TARGET=${TARGET} \
  -t ${TARGET}${SHORT_VER} \
- -f Dockerfile-${TARGET}-${SHORT_VER}-deb .
+ -f Dockerfile-${TARGET}-deb .
 echo "${password}" | sudo -S docker create --name ${TARGET}${SHORT_VER} ${TARGET}${SHORT_VER}
 echo "${password}" | sudo -S docker cp ${TARGET}${SHORT_VER}:/root/${TARGET}-deb-pkgs .
 echo "${password}" | sudo -S docker rm ${TARGET}${SHORT_VER}

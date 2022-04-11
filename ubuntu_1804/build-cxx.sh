@@ -7,7 +7,7 @@ if test "x${ARCH}" = "xaarch64"; then
 else
   TARGET=cxx
 fi
-VERSION=1.2.2
+VERSION=2.0.0
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
 printf "sudo password: "

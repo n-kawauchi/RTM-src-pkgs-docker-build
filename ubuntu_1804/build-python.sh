@@ -2,11 +2,11 @@
 
 CODE_NAME=bionic
 TARGET=python
-VERSION=1.2.2
-BRANCH=svn/RELENG_1_2
+VERSION=2.0.0
+#BRANCH=RELENG_2_0
+BRANCH=master
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
-#REPO=openrtm.org
-REPO=150.29.99.185
+REPO=openrtm.org
 
 printf "sudo password: "
 stty -echo
@@ -29,7 +29,7 @@ echo "${password}" | sudo -S docker build \
  --build-arg VERSION=${VERSION} \
  --build-arg REPO=${REPO} \
  -t ${TARGET}${SHORT_VER} \
- -f Dockerfile-${TARGET}-${SHORT_VER}-deb .
+ -f Dockerfile-${TARGET}-deb .
 echo "${password}" | sudo -S docker create --name ${TARGET}${SHORT_VER} ${TARGET}${SHORT_VER}
 echo "${password}" | sudo -S docker cp ${TARGET}${SHORT_VER}:/root/${TARGET}-src-pkgs .
 echo "${password}" | sudo -S docker cp ${TARGET}${SHORT_VER}:/root/${TARGET}-deb-pkgs .
