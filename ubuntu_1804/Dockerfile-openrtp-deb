@@ -8,7 +8,8 @@ RUN apt update\
  build-essential \
  debhelper \
  devscripts \
- fakeroot 
+ fakeroot \
+ libsecret-1-0
 
 COPY openrtp /root/openrtp
 WORKDIR /root/openrtp/packages/deb

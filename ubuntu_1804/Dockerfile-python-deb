@@ -44,4 +44,4 @@ RUN mkdir -p /root/${TARGET}-deb-pkgs \
  && tar xf OpenRTM-aist-Python-${VERSION}.tar.gz \
  && cd OpenRTM-aist-Python-${VERSION}/packages \
  && make \
- && cp /root/OpenRTM-aist-Python/dist/OpenRTM-aist-Python-${VERSION}/packages/openrtm-aist* /root/${TARGET}-deb-pkgs/
+ && cp /root/OpenRTM-aist-Python/dist/OpenRTM-aist-Python-${VERSION}/packages/openrtm* /root/${TARGET}-deb-pkgs/

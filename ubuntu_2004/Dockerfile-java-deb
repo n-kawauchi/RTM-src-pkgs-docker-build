@@ -67,4 +67,4 @@ RUN unzip OpenRTM-aist-Java-${VERSION}-jar.zip \
  && sh dpkg_build.sh
 
 RUN mkdir -p /root/${TARGET}-deb-pkgs \
- && cp /root/OpenRTM-aist-Java/work/OpenRTM-aist/${JAVA_SHORT_VER}/packages/openrtm-aist* /root/${TARGET}-deb-pkgs/
+ && cp /root/OpenRTM-aist-Java/work/OpenRTM-aist/${JAVA_SHORT_VER}/packages/openrtm* /root/${TARGET}-deb-pkgs/
