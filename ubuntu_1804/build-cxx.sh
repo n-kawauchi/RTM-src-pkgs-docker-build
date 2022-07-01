@@ -1,12 +1,7 @@
 #!/bin/bash
 
 UBUNTU_VER=1804
-ARCH=`arch`
-if test "x${ARCH}" = "xaarch64"; then
-  TARGET=cxx_arm
-else
-  TARGET=cxx
-fi
+TARGET=cxx
 VERSION=2.0.0
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
