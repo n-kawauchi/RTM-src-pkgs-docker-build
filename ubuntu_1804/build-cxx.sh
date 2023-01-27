@@ -2,7 +2,7 @@
 
 UBUNTU_VER=1804
 TARGET=cxx
-VERSION=2.0.0
+VERSION=2.0.1
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
 printf "sudo password: "

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TARGET=openrtp
-VERSION=2.0.0
+VERSION=2.0.1
 #BRANCH=RELENG_2_0
 BRANCH=master
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
