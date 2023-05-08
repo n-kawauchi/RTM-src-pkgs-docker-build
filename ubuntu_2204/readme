@@ -1,0 +1,48 @@
+Usage:
+
+$ git clone https://github.com/n-kawauchi/RTM-src-pkgs-docker-build
+$ cd RTM-src-pkgs-docker-build/ubuntu_2204
+
+--- Run the followings in this directory. ---
+
+< C++ > --- For creating deb packages
+$ sh build-cxx.sh 
+
+$ ls cxx-deb-pkgs/
+openrtm2-dev_2.0.1-1_amd64.deb      openrtm2_2.0.1-1.dsc
+openrtm2-doc_2.0.1-1_all.deb        openrtm2_2.0.1-1_amd64.buildinfo
+openrtm2-example_2.0.1-1_amd64.deb  openrtm2_2.0.1-1_amd64.changes
+openrtm2-idl_2.0.1-1_amd64.deb      openrtm2_2.0.1-1_amd64.deb
+openrtm2-ros2-tp_2.0.1-1_amd64.deb
+
+< Python >
+$ sh build-python.sh
+
+$ ls python-src-pkgs/
+OpenRTM-aist-Python-2.0.1.tar.gz  OpenRTM-aist-Python-2.0.1.zip
+
+$ ls python-deb-pkgs/
+openrtm2-python3-doc_2.0.1-1_all.deb        openrtm2-python3_2.0.1-1_amd64.changes
+openrtm2-python3-example_2.0.1-1_amd64.deb  openrtm2-python3_2.0.1-1_amd64.deb
+openrtm2-python3_2.0.1-1.dsc
+
+< Java >
+$ sh build-java.sh
+
+$ ls java-src-pkgs/
+OpenRTM-aist-Java-2.0.1-jar.zip  OpenRTM-aist-Java-2.0.1.tar.gz  OpenRTM-aist-Java-2.0.1.zip
+
+$ ls java-deb-pkgs/
+openrtm2-java-doc_2.0.1-0_all.deb        openrtm2-java_2.0.1-0_amd64.buildinfo
+openrtm2-java-example_2.0.1-0_amd64.deb  openrtm2-java_2.0.1-0_amd64.changes
+openrtm2-java_2.0.1-0.dsc                openrtm2-java_2.0.1-0_amd64.deb
+
+< OpenRTP >
+Download the latest all-inclusive package.
+https://openrtm.org/pub/openrtp/packages/
+
+$ wget https://openrtm.org/pub/openrtp/packages/2.0.1.v20230508/eclipse416-openrtp201v20230508-ja-linux-gtk-x86_64.tar.gz 
+$ sh build-openrtp.sh
+
+$ ls openrtp-deb-pkgs/
+openrtp2_2.0.1-1_amd64.deb
