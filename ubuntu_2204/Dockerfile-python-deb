@@ -22,7 +22,12 @@ RUN apt update\
  build-essential \
  debhelper \
  devscripts \
- fakeroot
+ fakeroot \
+ python3-pip \
+ python3.10-venv \
+ git
+
+RUN python3 -m pip install build
 
 RUN wget --no-check-certificate https://openrtm.org/pub/openrtm.key -O /etc/apt/keyrings/openrtm.key \
  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/openrtm.key] http://${REPO}/pub/Linux/ubuntu/ ${CODE_NAME} main" | tee /etc/apt/sources.list.d/openrtm.list > /dev/null \
@@ -36,15 +41,15 @@ RUN wget --no-check-certificate https://openrtm.org/pub/openrtm.key -O /etc/apt/
 
 COPY OpenRTM-aist-Python /root/OpenRTM-aist-Python
 WORKDIR /root/OpenRTM-aist-Python
-RUN python3 setup.py build \
- && python3 setup.py sdist \
- && mkdir -p /root/${TARGET}-src-pkgs \
- && cp dist/* /root/${TARGET}-src-pkgs/
+RUN python3 -m build \
+ && cd dist \
+ && python3 -m pip install --no-index --prefix=./ OpenRTM_aist_Python-${VERSION}-py3-none-any.whl \
+ && mv local/lib/python3*/dist-packages/OpenRTM_aist/examples . \
+ && mv local/lib/python3*/dist-packages/OpenRTM_aist* . \
+ && mv local/lib/python3*/dist-packages/packages .
 
-WORKDIR /root/OpenRTM-aist-Python/dist
+WORKDIR /root/OpenRTM-aist-Python/dist/packages/deb
 RUN mkdir -p /root/${TARGET}-deb-pkgs \
- && VERSION=`python3 ../setup.py --version` \
- && tar xf OpenRTM-aist-Python-${VERSION}.tar.gz \
- && cd OpenRTM-aist-Python-${VERSION}/packages \
- && make \
- && cp /root/OpenRTM-aist-Python/dist/OpenRTM-aist-Python-${VERSION}/packages/openrtm* /root/${TARGET}-deb-pkgs/
+ && chmod 775 dpkg_build.sh \
+ && ./dpkg_build.sh \
+ && cp ../openrtm* /root/${TARGET}-deb-pkgs/
