@@ -2,7 +2,7 @@
 
 CODE_NAME=focal
 TARGET=python
-VERSION=2.0.1
+VERSION=2.0.2
 #BRANCH=RELENG_2_0
 BRANCH=master
 SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
@@ -31,6 +31,5 @@ echo "${password}" | sudo -S docker build \
  -t ${TARGET}${SHORT_VER} \
  -f Dockerfile-${TARGET}-deb .
 echo "${password}" | sudo -S docker create --name ${TARGET}${SHORT_VER} ${TARGET}${SHORT_VER}
-echo "${password}" | sudo -S docker cp ${TARGET}${SHORT_VER}:/root/${TARGET}-src-pkgs .
 echo "${password}" | sudo -S docker cp ${TARGET}${SHORT_VER}:/root/${TARGET}-deb-pkgs .
 echo "${password}" | sudo -S docker rm ${TARGET}${SHORT_VER}
