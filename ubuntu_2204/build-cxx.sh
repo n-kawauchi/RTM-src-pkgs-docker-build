@@ -2,8 +2,6 @@
 
 UBUNTU_VER=2204
 TARGET=cxx
-VERSION=2.0.1
-SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
 printf "sudo password: "
 stty -echo
@@ -15,6 +13,9 @@ echo "${password}" | sudo -S rm -rf ${TARGET}-*
 rm -rf OpenRTM-aist
 
 git clone https://github.com/OpenRTM/OpenRTM-aist
+
+VERSION=`dpkg-parsechangelog --file OpenRTM-aist/packages/deb/debian/changelog --show-field Version | cut -b 1-5`
+SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
 # build in docker environment
 echo "${password}" | sudo -S docker build \

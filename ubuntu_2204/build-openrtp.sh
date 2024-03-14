@@ -1,10 +1,6 @@
 #!/bin/bash
 
 TARGET=openrtp
-VERSION=2.0.1
-#BRANCH=RELENG_2_0
-BRANCH=master
-SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
 #----- check all in one package
 ARCH=`arch`
@@ -35,8 +31,11 @@ mv eclipse openrtp
 
 git clone https://github.com/OpenRTM/OpenRTP-aist
 cd OpenRTP-aist
-git checkout ${BRANCH} 
 cp -r packages ../openrtp/
+
+VERSION=`dpkg-parsechangelog --file packages/deb/debian/changelog --show-field Version | cut -b 1-5`
+SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
+
 cd -
 rm -rf OpenRTP-aist
 

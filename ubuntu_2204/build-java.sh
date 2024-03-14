@@ -2,11 +2,6 @@
 
 CODE_NAME=jammy
 TARGET=java
-VERSION=2.0.1
-#BRANCH=RELENG_2_0
-BRANCH=master
-SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
-JAVA_SHORT_VER=`echo $VERSION | cut -b 1-3`
 REPO=openrtm.org
 
 printf "sudo password: "
@@ -19,9 +14,10 @@ echo "${password}" | sudo -S rm -rf ${TARGET}-*
 rm -rf OpenRTM-aist-Java
 
 git clone https://github.com/OpenRTM/OpenRTM-aist-Java
-cd OpenRTM-aist-Java
-git checkout ${BRANCH} 
-cd -
+
+VERSION=`dpkg-parsechangelog --file OpenRTM-aist-Java/packages/deb/debian/changelog --show-field Version | cut -b 1-5`
+SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
+JAVA_SHORT_VER=`echo $VERSION | cut -b 1-3`
 
 # build in docker environment
 echo "${password}" | sudo -S docker build \
