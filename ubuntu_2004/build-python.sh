@@ -2,10 +2,6 @@
 
 CODE_NAME=focal
 TARGET=python
-VERSION=2.0.2
-#BRANCH=RELENG_2_0
-BRANCH=master
-SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 REPO=openrtm.org
 
 printf "sudo password: "
@@ -18,9 +14,10 @@ echo "${password}" | sudo -S rm -rf ${TARGET}-*
 rm -rf OpenRTM-aist-Python
 
 git clone https://github.com/OpenRTM/OpenRTM-aist-Python
-cd OpenRTM-aist-Python
-git checkout ${BRANCH} 
-cd -
+cp dpkg_build.sh.python OpenRTM-aist-Python/packages/deb/dpkg_build.sh
+
+VERSION=`dpkg-parsechangelog --file OpenRTM-aist-Python/packages/deb/debian/changelog --show-field Version | cut -b 1-5`
+SHORT_VER=`echo $VERSION | cut -b 1-3 | sed 's/\.//g'`
 
 # build in docker environment
 echo "${password}" | sudo -S docker build \
