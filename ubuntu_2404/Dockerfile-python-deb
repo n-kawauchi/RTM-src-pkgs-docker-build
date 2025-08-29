@@ -28,8 +28,8 @@ RUN apt update\
  python3-build \
  git
 
-RUN wget --no-check-certificate https://openrtm.org/pub/openrtm.key -O /etc/apt/keyrings/openrtm.key \
- && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/openrtm.key] http://${REPO}/pub/Linux/ubuntu/ ${CODE_NAME} main" | tee /etc/apt/sources.list.d/openrtm.list > /dev/null \
+RUN wget --no-check-certificate https://openrtm.org/pub/openrtm-keyring.gpg -O /etc/apt/keyrings/openrtm-keyring.gpg \
+ && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/openrtm-keyring.gpg] http://${REPO}/pub/Linux/ubuntu/ ${CODE_NAME} main" | tee /etc/apt/sources.list.d/openrtm.list > /dev/null \
  && apt update \
  && apt install -y --no-install-recommends \
  libomniorb4-dev \
@@ -42,7 +42,7 @@ COPY OpenRTM-aist-Python /root/OpenRTM-aist-Python
 WORKDIR /root/OpenRTM-aist-Python
 RUN python3 -m build \
  && cd dist \
- && python3 -m pip install --no-index --prefix=./ OpenRTM_aist_Python-${VERSION}-py3-none-any.whl \
+ && python3 -m pip install --no-index --prefix=./ openrtm_aist_python-${VERSION}-py3-none-any.whl \
  && mv local/lib/python3*/dist-packages/OpenRTM_aist/examples . \
  && mv local/lib/python3*/dist-packages/* .
 
