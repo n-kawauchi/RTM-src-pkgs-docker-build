@@ -45,7 +45,8 @@ RUN python3 -m build \
  && cd dist \
  && python3 -m pip install --no-index --prefix=./ openrtm_aist_python-${VERSION}-py3-none-any.whl \
  && mv local/lib/python3*/dist-packages/OpenRTM_aist/examples . \
- && mv local/lib/python3*/dist-packages/* .
+ && mv local/lib/python3*/dist-packages/* . \
+ && cp -r ../packages/deb/conf packages/deb/
 
 WORKDIR /root/OpenRTM-aist-Python/dist/packages/deb
 RUN mkdir -p /root/${TARGET}-deb-pkgs \
