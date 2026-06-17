@@ -11,8 +11,8 @@ stty echo
 
 #----- ChoreonoidCORBAPluginBuildFiles 
 echo "${password}" | sudo -S rm -rf ${TARGET}-*
-#rm -rf ChoreonoidCORBAPluginBuildFiles 
-#git clone https://github.com/Nobu19800/ChoreonoidCORBAPluginBuildFiles 
+rm -rf ChoreonoidCORBAPluginBuildFiles 
+git clone https://github.com/Nobu19800/ChoreonoidCORBAPluginBuildFiles 
 
 #----- Copy Corba and CorbaPlugin from Choreonoid
 wget https://github.com/choreonoid/choreonoid/archive/refs/tags/v${CHOREONOID_VER}.tar.gz
