@@ -29,9 +29,6 @@ SHORT_VER=`echo $VERSION | cut -b 1-5 | sed 's/\.//g'`
 
 # build in docker environment
 echo "${password}" | sudo -S docker build \
- --build-arg CODE_NAME=${CODE_NAME} \
- --build-arg TARGET=${TARGET} \
- --build-arg VERSION=${VERSION} \
  -t ${TARGET}${SHORT_VER} \
  -f ChoreonoidCORBAPluginBuildFiles/scripts/ubuntu_${UBUNTU_VER}/Dockerfile.package .
 echo "${password}" | sudo -S docker create --name ${TARGET}${SHORT_VER} ${TARGET}${SHORT_VER}
